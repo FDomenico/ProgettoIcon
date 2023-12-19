@@ -1,9 +1,21 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import uuid
 
 
 NEW_TRAFFIC_VIOLATIONS_PATH = '../dataset/traffic_violations_prepocessing.csv'
 PLOT_PATH = "../plots/"
+
+
+def add_unique_code(df):
+    # Aggiungi una nuova colonna chiamata 'UniqueCode' con un codice univoco per ogni riga
+    df['UniqueCode'] = [f'Code_{i + 1}' for i in range(len(df))]
+
+    # Riorganizza le colonne per mettere 'UniqueCode' all'inizio
+    columns = ['UniqueCode'] + [col for col in df.columns if col != 'UniqueCode']
+    df = df[columns]
+
+    return df
 
 
 def plot_violation_type(violation: pd.DataFrame, save=True, show=False):

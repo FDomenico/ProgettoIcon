@@ -1,4 +1,3 @@
-import pandas as pd
 from Utils import *
 
 
@@ -6,6 +5,8 @@ def preprocessing():
     print("Reading data...")
     violation = pd.read_csv('../dataset/traffic_violations.csv')
     print("Preprocessing...")
+
+    violation = add_unique_code(violation)
 
     drop_column_traffic = ['description', 'race', 'state', 'driver_city']
     violation.drop(drop_column_traffic, axis=1, inplace=True)
@@ -16,6 +17,9 @@ def preprocessing():
     violation.dropna(subset=column_check_na_traffic, inplace=True)
 
     print("Preprocessing done!")
+
+    # Rimuovi il ".0" da ogni elemento nella colonna 'NumeroConDecimale'
+    violation['year'] = violation['year'].apply(lambda x: int(x) if x.is_integer() else x)
 
     plot_violation_type(violation, save=False, show=True)
 
@@ -38,5 +42,3 @@ t = preprocessing()
 print("Saving preprocessed data...")
 t.to_csv(NEW_TRAFFIC_VIOLATIONS_PATH, index=False)
 print("Preprocessed data saved!")
-
-

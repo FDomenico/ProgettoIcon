@@ -1,9 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import uuid
+from sklearn.metrics import ConfusionMatrixDisplay
 
 
-NEW_TRAFFIC_VIOLATIONS_PATH = '../dataset/traffic_violations_prepocessing.csv'
+NEW_TRAFFIC_VIOLATIONS_PATH = '../dataset/traffic_violations_preprocessing.csv'
 PLOT_PATH = "../plots/"
 
 
@@ -45,8 +46,27 @@ def stats(violation: pd.DataFrame, save=True, display=True):
         stat_c.to_csv("../Dataset/charge_stat.csv")
 
 
+def cross_val_score_plot(score, name, save: True, display: False):
+    plt.plot(range(1, 11), score)
+    plt.title(f"{name} Cross Validation Score")
+    plt.xlabel("k")
+    plt.ylabel("score")
+    if display:
+        plt.show()
+    if save:
+        plt.savefig(PLOT_PATH + name + "_cross_val_score.png")
+    plt.close()
+
+
+def confusion_matrix_plot(confusion_matrix, labels, name, save: True, display: False):
+    cm = ConfusionMatrixDisplay(confusion_matrix, display_labels=labels)
+    cm.plot()
+    if display:
+        plt.show()
+    if save:
+        plt.savefig(PLOT_PATH + name + "_confusion_matrix.png")
+    plt.close()
+
 
 #data = pd.read_csv('../dataset/traffic_violations.csv')
 #plot_violation_type(data)
-
-

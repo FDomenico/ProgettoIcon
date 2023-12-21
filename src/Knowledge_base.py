@@ -9,7 +9,7 @@ def create_kb(path: str, name: str):
     print(f"Creating knowledge base at {path + name}...")
     prolog_file.write(":-style_check(-discontiguous).\n")
 
-    # accident
+    # traffic_violation
     print("Writing violation facts...")
     for index, row in violation.iterrows():
         violation_code = f"violation(\"{row['UniqueCode']}\")"

@@ -18,6 +18,7 @@ def create_kb(path: str, name: str):
         prolog_file.write(f"property_damage({violation_code}, \"{row['property_damage']}\").\n")
         prolog_file.write(f"commercial_license({violation_code}, \"{row['commercial_license']}\").\n")
         prolog_file.write(f"commercial_vehicle({violation_code}, \"{row['commercial_vehicle']}\").\n")
+        prolog_file.write(f"vehicle_type({violation_code}, \"{row['vehicle_type']}\").\n")
         prolog_file.write(f"year({violation_code}, {row['year']}).\n")
         prolog_file.write(f"make({violation_code}, \"{row['make']}\").\n")
         prolog_file.write(f"model({violation_code},\"{row['model']}\").\n")

@@ -5,7 +5,7 @@ from sklearn.metrics import ConfusionMatrixDisplay
 
 
 NEW_TRAFFIC_VIOLATIONS_PATH = '../dataset/traffic_violations_preprocessing.csv'
-PLOT_PATH = "../plots/"
+PLOT_PATH = "../plot/"
 
 
 def add_unique_code(df):

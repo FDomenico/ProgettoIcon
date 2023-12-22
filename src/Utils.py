@@ -53,18 +53,22 @@ def stats(violation: pd.DataFrame, save=True, display=True):
     stat_c = violation[['charge']].describe()
     stat_vt = violation['vehicle_type'].unique()
     df_stat_vt = pd.DataFrame(stat_vt)
+    stat_at = violation['arrest_type'].unique()
+    df_stat_at = pd.DataFrame(stat_at)
     if display:
         print(stat_g)
         print(stat_m)
         print(stat_make)
         print(stat_c)
         print(stat_vt)
+        print(stat_at)
     if save:
         stat_g.to_csv("../Dataset/gender_stat.csv")
         stat_m.to_csv("../Dataset/model_stat.csv")
         stat_make.to_csv("../Dataset/make_stat.csv")
         stat_c.to_csv("../Dataset/charge_stat.csv")
         df_stat_vt.to_csv("../Dataset/vehicle_type_stat.csv")
+        df_stat_at.to_csv("../Dataset/arrest_type_stat.csv")
 
 
 def cross_val_score_plot(score, name, save: True, display: False):

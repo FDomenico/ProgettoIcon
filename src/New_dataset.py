@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pandas as pd
 from pyswip import Prolog
 from Utils import NEW_TRAFFIC_VIOLATIONS_PATH
@@ -5,7 +7,10 @@ from Utils import NEW_TRAFFIC_VIOLATIONS_PATH
 
 def define_clause(kb_path: str, kb_name: str) -> Prolog:
     prolog = Prolog()
+
     prolog.consult(f"{kb_path}{kb_name}")
+    current_year = datetime.now().year  # Ottieni l'anno corrente
+    prolog.assertz(f"current_year({current_year})")
     prolog.assertz("same_state(violation(V1), violation(V2)) :- dl_state(violation(V1), DLS), dl_state(violation(V2), DLS)")
     prolog.assertz("same_models(violation(V1), violation(V2)) :- model(violation(V1), MOD), model(violation(V2), MOD)")
     prolog.assertz("same_make(violation(V1), violation(V2)) :- make(violation(V1), MAKE), make(violation(V2), MAKE)")
@@ -22,6 +27,9 @@ def define_clause(kb_path: str, kb_name: str) -> Prolog:
     prolog.assertz("is_contributed_to_accident(violation(V)) :- contributed_to_accident(violation(V), CTA), (CTA = \"Yes\")")
     prolog.assertz("is_property_damaged(violation(V)) :- property_damage(violation(V), PD), (PD = \"Yes\")")
     prolog.assertz("is_personal_injured(violation(V)) :- personal_injury(violation(V), PI), (PI = \"Yes\")")
+
+    prolog.assertz(f"vehicle_age(violation(V), Age) :- year(violation(V), Year), current_year(CurrentYear), Age is CurrentYear - Year")
+
     prolog.assertz("is_automobile(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"02 - Automobile\")")
     prolog.assertz("is_l_truck(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"05 - Light Duty Truck\")")
     prolog.assertz("is_other(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"28 - Other\")")
@@ -45,6 +53,14 @@ def define_clause(kb_path: str, kb_name: str) -> Prolog:
     prolog.assertz("is_cc_bus(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"11 - Cross Country Bus\")")
     prolog.assertz("is_camper(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"24 - Camper\")")
 
+    prolog.assertz("vehicle_category(violation(V), 'Car') :- is_automobile(violation(V)); is_s_wagon(violation(V)); is_limousine(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 'Truck') :- is_l_truck(violation(V)); is_h_truck(violation(V)); is_c_rig(violation(V)); is_tractor(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 'Other') :- is_r_vehicle(violation(V)); is_farm_e(violation(V)); is_camper(violation(V)); is_f_vehicle(violation(V)); is_ambulance(violation(V)); is_other(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 'Motorcycle') :- is_motorcycle(violation(V)); is_moped(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 'Bus') :- is_t_bus(violation(V)); is_s_bus(violation(V)); is_cc_bus(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 'Unknown') :- is_unknown(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 'Trailer') :- is_b_trailer(violation(V)); is_t_trailer(violation(V)); is_u_trailer(violation(V))")
+
     return prolog
 
 
@@ -58,7 +74,33 @@ def query_to_dict_list(prolog: Prolog):
             v = f"\"{v}\""
             features_dict["UniqueCode"] = v
             features_dict["violation_type"] = list(prolog.query(f"violation_type(violation({v}), VT)"))[0]["VT"]
-            features_dict["automobile"] = int(bool(list(prolog.query(f"is_automobile(violation({v}))"))))
+            features_dict["vehicle_age"] = list(prolog.query(f"vehicle_age(violation({v}),Age)"))[0]["Age"]
+            car = list(prolog.query(f"vehicle_category(violation({v}), Car)"))
+            truck = list(prolog.query(f"vehicle_category(violation({v}), Truck)"))
+            other = list(prolog.query(f"vehicle_category(violation({v}), Other)"))
+            unknown = list(prolog.query(f"vehicle_category(violation({v}), Unknown)"))
+            bus = list(prolog.query(f"vehicle_category(violation({v}), Bus)"))
+            trailer = list(prolog.query(f"vehicle_category(violation({v}), Trailer)"))
+            motorcycle = list(prolog.query(f"vehicle_category(violation({v}), Motorcycle)"))
+
+            if len(car):
+                features_dict["vehicle_category"] = car[0]["Car"]
+            elif len(truck):
+                features_dict["vehicle_category"] = truck[0]["Truck"]
+            elif len(other):
+                features_dict["vehicle_category"] = other[0]["Other"]
+            elif len(unknown):
+                features_dict["vehicle_category"] = unknown[0]["Unknown"]
+            elif len(bus):
+                features_dict["vehicle_category"] = bus[0]["Bus"]
+            elif len(trailer):
+                features_dict["vehicle_category"] = trailer[0]["Trailer"]
+            elif len(motorcycle):
+                features_dict["vehicle_category"] = motorcycle[0]["Motorcycle"]
+            else:
+                features_dict["vehicle_category"] = "N/A"
+
+            """features_dict["automobile"] = int(bool(list(prolog.query(f"is_automobile(violation({v}))"))))
             features_dict["light_truck"] = int(bool(list(prolog.query(f"is_l_truck(violation({v}))"))))
             features_dict["violation_type"] = list(prolog.query(f"violation_type(violation({v}), VT)"))[0]["VT"]
             features_dict["automobile"] = int(bool(list(prolog.query(f"is_automobile(violation({v}))"))))
@@ -82,7 +124,7 @@ def query_to_dict_list(prolog: Prolog):
             features_dict["cc_bus"] = int(bool(list(prolog.query(f"is_cc_bus(violation({v}))"))))
             features_dict["ambulance"] = int(bool(list(prolog.query(f"is_ambulance(violation({v}))"))))
             features_dict["t_trailer"] = int(bool(list(prolog.query(f"is_t_trailer(violation({v}))"))))
-            features_dict["camper"] = int(bool(list(prolog.query(f"is_camper(violation({v}))"))))
+            features_dict["camper"] = int(bool(list(prolog.query(f"is_camper(violation({v}))"))))"""
 
             dict_list.append(features_dict)
         except ValueError as e:
@@ -96,3 +138,4 @@ print("Querying...")
 new_dataset = pd.DataFrame(query_to_dict_list(p))
 new_dataset.to_csv("../dataset/new_dataset.csv", index=False)
 print("Done!")
+

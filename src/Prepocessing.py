@@ -8,7 +8,7 @@ def preprocessing():
 
     violation = add_unique_code(violation)
 
-    drop_column_traffic = ['description', 'race', 'state', 'driver_city']
+    drop_column_traffic = ['race', 'state', 'driver_city']
     violation.drop(drop_column_traffic, axis=1, inplace=True)
     column_check_na_traffic = ['belts', 'personal_injury', 'property_damage',
                                'commercial_license', 'commercial_vehicle', 'vehicle_type',

@@ -28,7 +28,8 @@ def create_kb(path: str, name: str):
         prolog_file.write(f"driver_state({violation_code}, \"{row['driver_state']}\").\n")
         prolog_file.write(f"dL_state({violation_code},\"{row['dL_state']}\").\n")
         prolog_file.write(f"arrest_type({violation_code}, \"{row['arrest_type']}\").\n")
-        prolog_file.write(f"violation_type({violation_code}, \"{row['violation_type']}\").\n")
+        prolog_file.write(f"contributed_to_accident({violation_code}, \"{row['contributed_to_accident']}\").\n")
+        prolog_file.write(f"violation_type({violation_code}, {row['violation_type']}).\n")
     prolog_file.close()
     print("Knowledge base created!")
 

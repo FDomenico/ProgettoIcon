@@ -1,41 +1,29 @@
 import nltk
-from nltk.tokenize import word_tokenize
 import pandas as pd
-import re
+from rake_nltk import Rake
 
-nltk.download("punkt")
+
+nltk.download('stopwords')
+# Carica il dataset con le descrizioni
 df = pd.read_csv("../dataset/traffic_violations_preprocessing.csv")
 
-descriptions = df["description"]
-tokenized_descriptions = descriptions.apply(lambda x: word_tokenize(str(x)))
-
-df["tokenized_description"] = tokenized_descriptions
-print(df[["description", "tokenized_description"]])
-
-parole_chiave = [
-    "expired registration plate",
-    "driving under the influence",
-    "exceeding maximum speed",
-    "failure to display registration card"
-]
+# Inizializza l'oggetto Rake per l'estrazione delle parole chiave
+r = Rake()
 
 
-def trova_parole_chiave(testo):
-    for keyword in parole_chiave:
-        if re.search(keyword, str(testo), re.IGNORECASE):
-            return keyword
-    return None
+# Funzione per estrarre le parole chiave da una descrizione
+def estrai_parole_chiave(testo):
+    r.extract_keywords_from_text(testo)
+    return r.get_ranked_phrases()[0] if r.get_ranked_phrases() else None
 
 
-# Applica la funzione alle descrizioni per trovare le parole chiave
-df['parola_chiave'] = df['description'].apply(trova_parole_chiave)
+# Applica la funzione per estrarre le parole chiave da ogni descrizione
+df['parole_chiave'] = df['description'].apply(estrai_parole_chiave)
+csv_description_keyword = df[['description', 'parole_chiave']]
+description_keyword = pd.DataFrame(csv_description_keyword)
 
-# Visualizza le righe che contengono parole chiave
-righe_con_parole_chiave = df[df['parola_chiave'].notnull()]
-print(righe_con_parole_chiave[['description', 'parola_chiave']])
+# Visualizza il dataframe con le parole chiave generate
+print(description_keyword[['description', 'parole_chiave']])
 
-df_output = righe_con_parole_chiave[['description', 'parola_chiave']]
-df_output.to_csv("../dataset/parole_chiave.csv", index=False)
-
-
-
+# Salva il risultato in un file CSV
+description_keyword.to_csv("../dataset/parole_chiave_singole.csv", index=False)

@@ -5,7 +5,7 @@ from sklearn.metrics import ConfusionMatrixDisplay
 
 
 NEW_TRAFFIC_VIOLATIONS_PATH = '../dataset/traffic_violations_preprocessing.csv'
-PLOT_PATH = "../plots/"
+PLOT_PATH = "../plot/"
 
 
 def add_unique_code(df):
@@ -60,8 +60,6 @@ def stats(violation: pd.DataFrame, save=True, display=True):
     df_stat_ds = pd.DataFrame(stat_ds)
     stat_dls = violation['dL_state'].unique()
     df_stat_dls = pd.DataFrame(stat_dls)
-    stat_d = violation['description'].unique()
-    df_stat_d = pd.DataFrame(stat_d)
     if display:
         print(stat_g)
         print(stat_m)
@@ -71,7 +69,6 @@ def stats(violation: pd.DataFrame, save=True, display=True):
         print(stat_at)
         print(stat_ds)
         print(stat_dls)
-        print(stat_d)
 
     if save:
         stat_g.to_csv("../dataset/gender_stat.csv")
@@ -82,7 +79,6 @@ def stats(violation: pd.DataFrame, save=True, display=True):
         df_stat_at.to_csv("../dataset/arrest_type_stat.csv")
         df_stat_ds.to_csv("../dataset/driver_state_stat.csv")
         df_stat_dls.to_csv("../dataset/dL_state_stat.csv")
-        df_stat_d.to_csv("../dataset/description_stat.csv")
 
 
 def cross_val_score_plot(score, name, save: True, display: False):

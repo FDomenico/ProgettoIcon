@@ -53,13 +53,13 @@ def define_clause(kb_path: str, kb_name: str) -> Prolog:
     prolog.assertz("is_cc_bus(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"11 - Cross Country Bus\")")
     prolog.assertz("is_camper(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"24 - Camper\")")
 
-    prolog.assertz("vehicle_category(violation(V), 'Car') :- is_automobile(violation(V)); is_s_wagon(violation(V)); is_limousine(violation(V))")
-    prolog.assertz("vehicle_category(violation(V), 'Truck') :- is_l_truck(violation(V)); is_h_truck(violation(V)); is_c_rig(violation(V)); is_tractor(violation(V))")
-    prolog.assertz("vehicle_category(violation(V), 'Other') :- is_r_vehicle(violation(V)); is_farm_e(violation(V)); is_camper(violation(V)); is_f_vehicle(violation(V)); is_ambulance(violation(V)); is_other(violation(V))")
-    prolog.assertz("vehicle_category(violation(V), 'Motorcycle') :- is_motorcycle(violation(V)); is_moped(violation(V))")
-    prolog.assertz("vehicle_category(violation(V), 'Bus') :- is_t_bus(violation(V)); is_s_bus(violation(V)); is_cc_bus(violation(V))")
-    prolog.assertz("vehicle_category(violation(V), 'Unknown') :- is_unknown(violation(V))")
-    prolog.assertz("vehicle_category(violation(V), 'Trailer') :- is_b_trailer(violation(V)); is_t_trailer(violation(V)); is_u_trailer(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 1) :- is_automobile(violation(V)); is_s_wagon(violation(V)); is_limousine(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 2) :- is_l_truck(violation(V)); is_h_truck(violation(V)); is_c_rig(violation(V)); is_tractor(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 3) :- is_r_vehicle(violation(V)); is_farm_e(violation(V)); is_camper(violation(V)); is_f_vehicle(violation(V)); is_ambulance(violation(V)); is_other(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 4) :- is_motorcycle(violation(V)); is_moped(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 5) :- is_t_bus(violation(V)); is_s_bus(violation(V)); is_cc_bus(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 6) :- is_unknown(violation(V))")
+    prolog.assertz("vehicle_category(violation(V), 7) :- is_b_trailer(violation(V)); is_t_trailer(violation(V)); is_u_trailer(violation(V))")
 
     return prolog
 
@@ -75,6 +75,10 @@ def query_to_dict_list(prolog: Prolog):
             features_dict["UniqueCode"] = v
             features_dict["violation_type"] = list(prolog.query(f"violation_type(violation({v}), VT)"))[0]["VT"]
             features_dict["vehicle_age"] = list(prolog.query(f"vehicle_age(violation({v}),Age)"))[0]["Age"]
+            features_dict["belts"] = int(bool(list(prolog.query(f"is_belts(violation({v}))"))))
+            features_dict["personal_injured"] = int(bool(list(prolog.query(f"is_personal_injured(violation({v}))"))))
+            features_dict["contributed_to_accident"] = int(bool(list(prolog.query(f"is_contributed_to_accident(violation({v}))"))))
+            features_dict["property_damaged"] = int(bool(list(prolog.query(f"is_property_damaged(violation({v}))"))))
             car = list(prolog.query(f"vehicle_category(violation({v}), Car)"))
             truck = list(prolog.query(f"vehicle_category(violation({v}), Truck)"))
             other = list(prolog.query(f"vehicle_category(violation({v}), Other)"))

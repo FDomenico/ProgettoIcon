@@ -1,0 +1,13 @@
+KMeans
+y Labels Count:
+violation_type
+0    3482
+1    3482
+2    3482
+Name: count, dtype: int64
+KMeans Labels Count:
+1    10438
+2        6
+3        2
+Name: count, dtype: int64
+Rand Index: 0.333780191400356

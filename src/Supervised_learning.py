@@ -43,7 +43,7 @@ def supervised(display: True, save: True):
         with open(f"{path}/log_regression.txt", "w") as f:
             f.write(lr)
 
-    sv = svm(X, y, fold_number)
+    """sv = svm(X, y, fold_number)
     if display:
         print(sv)
     if save:
@@ -62,7 +62,7 @@ def supervised(display: True, save: True):
         print(ab)
     if save:
         with open(f"{path}/ada_boost.txt", "w") as f:
-            f.write(ab)
+            f.write(ab)"""
 
     nn = neural_network(X, y, fold_number)
     if display:

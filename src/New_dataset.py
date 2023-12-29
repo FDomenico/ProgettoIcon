@@ -53,6 +53,8 @@ def define_clause(kb_path: str, kb_name: str) -> Prolog:
     prolog.assertz("is_cc_bus(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"11 - Cross Country Bus\")")
     prolog.assertz("is_camper(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"24 - Camper\")")
 
+
+
     prolog.assertz("vehicle_category(violation(V), 1) :- is_automobile(violation(V)); is_s_wagon(violation(V)); is_limousine(violation(V))")
     prolog.assertz("vehicle_category(violation(V), 2) :- is_l_truck(violation(V)); is_h_truck(violation(V)); is_c_rig(violation(V)); is_tractor(violation(V))")
     prolog.assertz("vehicle_category(violation(V), 3) :- is_r_vehicle(violation(V)); is_farm_e(violation(V)); is_camper(violation(V)); is_f_vehicle(violation(V)); is_ambulance(violation(V)); is_other(violation(V))")
@@ -61,6 +63,7 @@ def define_clause(kb_path: str, kb_name: str) -> Prolog:
     prolog.assertz("vehicle_category(violation(V), 6) :- is_unknown(violation(V))")
     prolog.assertz("vehicle_category(violation(V), 7) :- is_b_trailer(violation(V)); is_t_trailer(violation(V)); is_u_trailer(violation(V))")
 
+    
     return prolog
 
 

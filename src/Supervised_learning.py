@@ -43,6 +43,13 @@ def supervised(display: True, save: True):
         with open(f"{path}/log_regression.txt", "w") as f:
             f.write(lr)
 
+    rf = random_forest(X, y, fold_number)
+    if display:
+        print(rf)
+    if save:
+        with open(f"{path}/random_forest.txt", "w") as f:
+            f.write(rf)
+
     sv = svm(X, y, fold_number)
     if display:
         print(sv)
@@ -50,12 +57,6 @@ def supervised(display: True, save: True):
         with open(f"{path}/svm.txt", "w") as f:
             f.write(sv)
 
-    rf = random_forest(X, y, fold_number)
-    if display:
-        print(rf)
-    if save:
-        with open(f"{path}/random_forest.txt", "w") as f:
-            f.write(rf)
 
     ab = ada_boost(X, y, fold_number)
     if display:

@@ -10,7 +10,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from sklearn.model_selection import KFold
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from scikeras.wrappers import KerasClassifier
 from Utils import cross_val_score_plot, confusion_matrix_plot
 import warnings
@@ -119,32 +119,6 @@ def log_regression(X, y, k):
     return "Logistic Regression\n" + "C: " + str(best_c) + "\n" + report + "\n"
 
 
-def svm(X, y, k):
-    best_y_pred = []
-    best_accuracy = 0
-    best_c = 0
-    best_kernel = ""
-    best_gamma = 0
-    best_svm = None
-    for c in [0.1, 0.5, 1, 2, 5, 10]:
-        for kernel in ['linear', 'poly', 'rbf', 'sigmoid']:
-            for gamma in ['scale', 'auto']:
-                svm_model = SVC(C=c, kernel=kernel, gamma=gamma)
-                y_pred = cross_val_predict(svm_model, X, y, cv=k)
-                accuracy = accuracy_score(y, y_pred)
-                if accuracy > best_accuracy:
-                    best_y_pred = y_pred
-                    best_accuracy = accuracy
-                    best_c = c
-                    best_kernel = kernel
-                    best_gamma = gamma
-                    best_svm = svm_model
-    cross_val_score_plot(cross_val_score(best_svm, X, y, cv=k), "svm", save=True, display=False)
-    confusion_matrix_plot(confusion_matrix(y, best_y_pred, labels=LABELS), LABELS, "svm", save=True, display=False)
-    report = classification_report(y, best_y_pred)
-    return "SVM\n" + "C: " + str(best_c) + "\nkernel: " + best_kernel + "\ngamma: " + best_gamma + "\n" + report + "\n"
-
-
 def random_forest(X, y, k):
     best_y_pred = []
     best_accuracy = 0
@@ -172,6 +146,32 @@ def random_forest(X, y, k):
     return "Random Forest\n" + "n_estimators: " + str(
         best_n_estimators) + "\nmax_features: " + best_max_features + "\nmax_depth: " + str(
         best_max_depth) + "\n" + report + "\n"
+
+
+def svm(X, y, k):
+    best_y_pred = []
+    best_accuracy = 0
+    best_c = 0
+    best_kernel = ""
+    best_gamma = 0
+    best_svm = None
+    for c in [0.1, 0.5, 1, 2, 5, 10]:
+        for kernel in ['linear', 'poly', 'rbf', 'sigmoid']:
+            for gamma in ['scale', 'auto']:
+                svm_model = SVC(C=c, kernel=kernel, gamma=gamma)
+                y_pred = cross_val_predict(svm_model, X, y, cv=k)
+                accuracy = accuracy_score(y, y_pred)
+                if accuracy > best_accuracy:
+                    best_y_pred = y_pred
+                    best_accuracy = accuracy
+                    best_c = c
+                    best_kernel = kernel
+                    best_gamma = gamma
+                    best_svm = svm_model
+    cross_val_score_plot(cross_val_score(best_svm, X, y, cv=k), "svm", save=True, display=False)
+    confusion_matrix_plot(confusion_matrix(y, best_y_pred, labels=LABELS), LABELS, "svm", save=True, display=False)
+    report = classification_report(y, best_y_pred)
+    return "SVM\n" + "C: " + str(best_c) + "\nkernel: " + best_kernel + "\ngamma: " + best_gamma + "\n" + report + "\n"
 
 
 def ada_boost(X, y, k):

@@ -1,0 +1,14 @@
+Ada Boost
+n_estimators: 200
+learning_rate: 1
+estimator: DecisionTreeClassifier
+              precision    recall  f1-score   support
+
+           0       0.57      0.13      0.22      3482
+           1       0.41      0.65      0.50      3482
+           2       0.41      0.47      0.44      3482
+
+    accuracy                           0.42     10446
+   macro avg       0.46      0.42      0.39     10446
+weighted avg       0.46      0.42      0.39     10446
+

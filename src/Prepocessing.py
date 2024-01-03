@@ -10,13 +10,16 @@ def preprocessing():
     violation = add_unique_code(violation)
     le = LabelEncoder()
     violation['violation_type'] = le.fit_transform(violation['violation_type'])
-    drop_column_traffic = ['description', 'race', 'state', 'driver_city']
+    drop_column_traffic = ['race', 'state', 'driver_city']
     violation.drop(drop_column_traffic, axis=1, inplace=True)
     column_check_na_traffic = ['belts', 'personal_injury', 'property_damage',
                                'commercial_license', 'commercial_vehicle', 'vehicle_type',
                                'year', 'make', 'model', 'color', 'charge', 'contributed_to_accident',
                                'gender', 'driver_state', 'dL_state', 'arrest_type', 'violation_type']
     violation.dropna(subset=column_check_na_traffic, inplace=True)
+
+    # Rimuovi le righe con una sola parola nel campo 'descrizione'
+    violation = violation[violation['description'].apply(lambda x: len(str(x).split()) > 1)]
 
     # Rimuovi il ".0" da ogni elemento nella colonna 'NumeroConDecimale'
     violation['year'] = violation['year'].apply(lambda x: int(x) if x.is_integer() else x)

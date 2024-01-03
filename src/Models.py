@@ -224,8 +224,8 @@ def neural_network(X, y, k):
 
     kf = KFold(n_splits=k, shuffle=True, random_state=42)
 
-    encoder = LabelEncoder()
-    y_encoded = encoder.fit_transform(y)
+    encoder = OneHotEncoder()
+    y_encoded = encoder.fit_transform(y.values.reshape(-1, 1)).toarray()
     for num_nodes in [16, 32, 64, 128]:
         for epoch in [10, 50, 100]:
             for dropout_prob in [0, 0.2, 0.5]:

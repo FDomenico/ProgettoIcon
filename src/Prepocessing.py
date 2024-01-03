@@ -23,7 +23,7 @@ def preprocessing():
 
     print("Preprocessing done!")
 
-    plot_violation_type(violation, save=False, show=True)
+    plot_violation_type(violation, save=True, show=True)
 
     print("Balancing data...")
     min_samples = violation['violation_type'].value_counts().min()

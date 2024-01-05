@@ -1,7 +1,7 @@
 from Utils import *
 from sklearn.preprocessing import LabelEncoder
-from Tokenizzazione import *
-from Classificazione import *
+from Tokenization import *
+from Classification import *
 
 
 def preprocessing():
@@ -11,7 +11,7 @@ def preprocessing():
 
     violation = add_unique_code(violation) #Aggiunge l'identificatore di riga (UniqueCode)
 
-    #Codifica numerica di violation_type
+    # Codifica numerica di violation_type
     le = LabelEncoder()
     violation['violation_type'] = le.fit_transform(violation['violation_type'])
 
@@ -25,9 +25,13 @@ def preprocessing():
     # Rimuovi le righe con una sola parola nel campo 'descrizione'
     violation = violation[violation['description'].apply(lambda x: len(str(x).split()) > 1)]
 
-    #Classificazione della descrizione
-    violation = tokenizzation(violation)
+    # Classificazione della descrizione
+    violation = tokenization(violation)
     violation = classification(violation)
+
+    # Codifica numerica di category
+    le = LabelEncoder()
+    violation['category'] = le.fit_transform(violation['category'])
 
     # Rimuovi il ".0" da ogni elemento nella colonna 'NumeroConDecimale'
     violation['year'] = violation['year'].apply(lambda x: int(x) if x.is_integer() else x)

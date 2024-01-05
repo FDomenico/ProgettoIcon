@@ -12,7 +12,7 @@ def create_kb(path: str, name: str):
     # traffic_violation
     print("Writing violation facts...")
     for index, row in violation.iterrows():
-        violation_code = f"violation(\"{row['UniqueCode']}\")"
+        violation_code = f"violation(\"{row['unique_code']}\")"
         prolog_file.write(f"belts({violation_code}, \"{row['belts']}\").\n")
         prolog_file.write(f"personal_injury({violation_code}, \"{row['personal_injury']}\").\n")
         prolog_file.write(f"property_damage({violation_code}, \"{row['property_damage']}\").\n")

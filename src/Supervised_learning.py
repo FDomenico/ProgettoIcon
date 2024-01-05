@@ -6,7 +6,7 @@ from Models import *
 def supervised(display: True, save: True):
     path = "../report"
     df = pd.read_csv('../dataset/new_dataset.csv', low_memory=False)
-    df.drop(['UniqueCode'], axis=1, inplace=True)
+    df.drop(['unique_code'], axis=1, inplace=True)
     y = df['violation_type']
     X = df.drop(['violation_type'], axis=1)
 

@@ -70,12 +70,12 @@ def define_clause(kb_path: str, kb_name: str) -> Prolog:
 def query_to_dict_list(prolog: Prolog):
     violation = pd.read_csv(NEW_TRAFFIC_VIOLATIONS_PATH, low_memory=False)
     dict_list = []
-    for v in violation['UniqueCode']:
-        print(violation[violation['UniqueCode'] == v].index[0], "/", len(violation))
+    for v in violation['unique_code']:
+        print(violation[violation['unique_code'] == v].index[0], "/", len(violation))
         try:
             features_dict = {}
             v = f"\"{v}\""
-            features_dict["UniqueCode"] = v
+            features_dict["unique_code"] = v
             features_dict["violation_type"] = list(prolog.query(f"violation_type(violation({v}), VT)"))[0]["VT"]
             features_dict["vehicle_age"] = list(prolog.query(f"vehicle_age(violation({v}),Age)"))[0]["Age"]
             features_dict["belts"] = int(bool(list(prolog.query(f"is_belts(violation({v}))"))))
@@ -135,7 +135,7 @@ def query_to_dict_list(prolog: Prolog):
 
             dict_list.append(features_dict)
         except ValueError as e:
-            print("exception", violation[violation['UniqueCode'] == v].index[0])
+            print("exception", violation[violation['unique_code'] == v].index[0])
     return dict_list
 
 

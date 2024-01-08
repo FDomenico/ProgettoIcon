@@ -33,7 +33,6 @@ def classification(df1: pd.DataFrame):
                                   'driver failure reduce light distribution within',
                                   'driver failure avoid projecting glaring light', 'dash light',
                                   'driving vehequipment hwy lamp deviceimproperly displaying white light rear',
-                                  'driving vehequipment hwy lamp deviceimproperly displaying white light rear',
                                   'inop lt head lamp', 'vehicle lamp projecting glaring dazzling light',
                                   'driving veh hwy lamp displaying white light rear',
                                   'use lamps motor veh changing original performance',

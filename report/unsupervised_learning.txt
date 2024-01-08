@@ -6,8 +6,8 @@ violation_type
 2    2398
 Name: count, dtype: int64
 KMeans Labels Count:
-1    7190
-2       3
-3       1
+1    3006
+2    2455
+3    1733
 Name: count, dtype: int64
-Rand Index: 0.3336118838856592
+Rand Index: 0.627414731238913

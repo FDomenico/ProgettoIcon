@@ -11,7 +11,7 @@ def define_clause(kb_path: str, kb_name: str) -> Prolog:
     prolog.consult(f"{kb_path}{kb_name}")
     current_year = datetime.now().year  # Ottieni l'anno corrente
     prolog.assertz(f"current_year({current_year})")
-    prolog.assertz("same_state(violation(V1), violation(V2)) :- dl_state(violation(V1), DLS), dl_state(violation(V2), DLS)")
+    '''prolog.assertz("same_state(violation(V1), violation(V2)) :- dl_state(violation(V1), DLS), dl_state(violation(V2), DLS)")
     prolog.assertz("same_models(violation(V1), violation(V2)) :- model(violation(V1), MOD), model(violation(V2), MOD)")
     prolog.assertz("same_make(violation(V1), violation(V2)) :- make(violation(V1), MAKE), make(violation(V2), MAKE)")
     prolog.assertz("same_color(violation(V1), violation(V2)) :- color(violation(V1), COL), color(violation(V2), COL)")
@@ -19,7 +19,7 @@ def define_clause(kb_path: str, kb_name: str) -> Prolog:
     prolog.assertz("same_vehicle(violation(V1), violation(V2)) :- vehicle_type(violation(V1), VT), vehicle_type(violation(V2), VT)")
     prolog.assertz("same_arrest(violation(V1), violation(V2)) :- arrest_type(violation(V1), AT), arrest_type(violation(V2), AT)")
     prolog.assertz("same_charge(violation(V1), violation(V2)) :- charge(violation(V1), CH), charge(violation(V2), CH)")
-    prolog.assertz("same_driver_state(violation(V1), violation(V2)) :- driver_state(violation(V1), DS), driver_state(violation(V2), DS)")
+    prolog.assertz("same_driver_state(violation(V1), violation(V2)) :- driver_state(violation(V1), DS), driver_state(violation(V2), DS)")'''
 
     prolog.assertz("is_belts(violation(V)) :- belts(violation(V1), B), (B = \"Yes\")")
     prolog.assertz("is_commercial_licence(violation(V)) :- commercial_licence(violation(V), CL), (CL = \"Yes\")")
@@ -28,8 +28,39 @@ def define_clause(kb_path: str, kb_name: str) -> Prolog:
     prolog.assertz("is_property_damaged(violation(V)) :- property_damage(violation(V), PD), (PD = \"Yes\")")
     prolog.assertz("is_personal_injured(violation(V)) :- personal_injury(violation(V), PI), (PI = \"Yes\")")
 
+    # arrest_type
+    prolog.assertz("is_m_patrol(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"A - Marked Patrol\")")
+    prolog.assertz("is_u_patrol(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"B - Unmarked Patrol\")")
+    prolog.assertz("is_l_p_recognition(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"S - License Plate Recognition\")")
+    prolog.assertz("is_m_laser(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"Q - Marked Laser\")")
+    prolog.assertz("is_motorcycle(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"L - Motorcycle\")")
+    prolog.assertz("is_f_patrol(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"O - Foot Patrol\")")
+    prolog.assertz("is_u_laser(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"R - Unmarked Laser\")")
+    prolog.assertz("is_marked(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"M - Marked(Off - Duty)\")")
+    prolog.assertz("is_m_s_radar(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"E - Marked Stationary Radar\")")
+    prolog.assertz("is_m_m_radar_s(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"G - Marked Moving Radar(Stationary)\")")
+    prolog.assertz("is_m_m_radar_m(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"I - Marked Moving Radar(Moving)\")")
+    prolog.assertz("is_u_m_radar_s(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"H - Unmarked Moving Radar(Stationary)\")")
+    prolog.assertz("is_monted_patrol(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"P - Mounted Patrol\")")
+    prolog.assertz("is_unmarked(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"N - Unmarked(Off - Duty)\")")
+    prolog.assertz("is_u_vascar(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"D - Unmarked VASCAR\")")
+    prolog.assertz("is_u_m_radar_m(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"J - Unmarked Moving Radar(Moving)\")")
+    prolog.assertz("is_u_s_radar(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"F - Unmarked Stationary Radar\")")
+    prolog.assertz("is_m_vascar(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"C - Marked VASCAR)\")")
+    prolog.assertz("is_a_aircraft(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"K - Aircraft Assist\")")
+
+    prolog.assertz("arrest_category(violation(V), 1) :- is_m_patrol(violation(V)); is_u_patrol(violation(V)); is_f_patrol(violation(V)); is_monted_patrol(violation(V))")
+    prolog.assertz("arrest_category(violation(V), 2) :- is_l_p_recognition(violation(V)); is_u_laser(violation(V)); is_m_laser(violation(V)); is_m_s_radar(violation(V)); is_m_m_radar_s(violation(V)); "
+                   "is_m_m_radar_m(violation(V)); "
+                   "is_u_m_radar_s(violation(V)); "
+                   "is_u_m_radar_m(violation(V)); "
+                   "is_u_s_radar(violation(V)); "
+                   "is_m_vascar(violation(V)); is_u_vascar(violation(V))")
+    prolog.assertz("arrest_category(violation(V), 3) :- is_motorcycle(violation(V)); is_a_aircraft(violation(V)); is_unmarked(violation(V)); is_marked(violation(V))")
+
     prolog.assertz(f"vehicle_age(violation(V), Age) :- year(violation(V), Year), current_year(CurrentYear), Age is CurrentYear - Year")
 
+    # vehicle_type
     prolog.assertz("is_automobile(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"02 - Automobile\")")
     prolog.assertz("is_l_truck(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"05 - Light Duty Truck\")")
     prolog.assertz("is_other(violation(V)) :- vehicle_type(violation(V), VT), (VT = \"28 - Other\")")
@@ -80,6 +111,8 @@ def query_to_dict_list(prolog: Prolog):
             features_dict["personal_injured"] = int(bool(list(prolog.query(f"is_personal_injured(violation({v}))"))))
             features_dict["contributed_to_accident"] = int(bool(list(prolog.query(f"is_contributed_to_accident(violation({v}))"))))
             features_dict["property_damaged"] = int(bool(list(prolog.query(f"is_property_damaged(violation({v}))"))))
+
+            # vehicle_type
             car = list(prolog.query(f"vehicle_category(violation({v}), Car)"))
             truck = list(prolog.query(f"vehicle_category(violation({v}), Truck)"))
             other = list(prolog.query(f"vehicle_category(violation({v}), Other)"))
@@ -104,6 +137,20 @@ def query_to_dict_list(prolog: Prolog):
                 features_dict["vehicle_category"] = motorcycle[0]["Motorcycle"]
             else:
                 features_dict["vehicle_category"] = "N/A"
+
+            # arrest_type
+            traffic = list(prolog.query(f"arrest_category(violation({v}), Traffic)"))
+            survey = list(prolog.query(f"arrest_category(violation({v}), Survey)"))
+            other1 = list(prolog.query(f"arrest_category(violation({v}), Other1)"))
+
+            if len(traffic):
+                features_dict["arrest_category"] = traffic[0]["Traffic"]
+            elif len(survey):
+                features_dict["arrest_category"] = survey[0]["Survey"]
+            elif len(other1):
+                features_dict["arrest_category"] = other1[0]["Other1"]
+            else:
+                features_dict["arrest_category"] = "N/A"
 
             dict_list.append(features_dict)
         except ValueError as e:

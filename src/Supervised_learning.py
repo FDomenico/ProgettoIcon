@@ -6,7 +6,7 @@ from Models import *
 def supervised(display: True, save: True):
     path = "../report"
     df = pd.read_csv('../dataset/new_dataset.csv', low_memory=False)
-    df.drop(['UniqueCode'], axis=1, inplace=True)
+    df.drop(['unique_code'], axis=1, inplace=True)
     y = df['violation_type']
     X = df.drop(['violation_type'], axis=1)
 
@@ -15,7 +15,7 @@ def supervised(display: True, save: True):
 
     fold_number = 10
 
-    """dt = decision_tree(X, y, fold_number)
+    dt = decision_tree(X, y, fold_number)
     if display:
         print(dt)
     if save:
@@ -43,7 +43,7 @@ def supervised(display: True, save: True):
         with open(f"{path}/log_regression.txt", "w") as f:
             f.write(lr)
 
-    rf = random_forest(X, y, fold_number)
+    """rf = random_forest(X, y, fold_number)
     if display:
         print(rf)
     if save:
@@ -62,14 +62,14 @@ def supervised(display: True, save: True):
         print(ab)
     if save:
         with open(f"{path}/ada_boost.txt", "w") as f:
-            f.write(ab)"""
+            f.write(ab)
 
     nn = neural_network(X, y, fold_number)
     if display:
         print(nn)
     if save:
         with open(f"{path}/neural_network.txt", "w") as f:
-            f.write(nn)
+            f.write(nn)"""
 
 
 print("Starting...")

@@ -9,11 +9,11 @@ PLOT_PATH = "../plot/"
 
 
 def add_unique_code(df):
-    # Aggiungi una nuova colonna chiamata 'UniqueCode' con un codice univoco per ogni riga
-    df['UniqueCode'] = [f'Code_{i + 1}' for i in range(len(df))]
+    # Aggiungi una nuova colonna chiamata 'unique_code' con un codice univoco per ogni riga
+    df['unique_code'] = [f'Code_{i + 1}' for i in range(len(df))]
 
-    # Riorganizza le colonne per mettere 'UniqueCode' all'inizio
-    columns = ['UniqueCode'] + [col for col in df.columns if col != 'UniqueCode']
+    # Riorganizza le colonne per mettere 'unique_code' all'inizio
+    columns = ['unique_code'] + [col for col in df.columns if col != 'unique_code']
     df = df[columns]
 
     return df

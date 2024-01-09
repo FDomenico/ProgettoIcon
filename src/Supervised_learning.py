@@ -15,7 +15,7 @@ def supervised(display: True, save: True):
 
     fold_number = 10
 
-    dt = decision_tree(X, y, fold_number)
+    '''dt = decision_tree(X, y, fold_number)
     if display:
         print(dt)
     if save:
@@ -43,12 +43,12 @@ def supervised(display: True, save: True):
         with open(f"{path}/log_regression.txt", "w") as f:
             f.write(lr)
 
-    """rf = random_forest(X, y, fold_number)
+    rf = random_forest(X, y, fold_number)
     if display:
         print(rf)
     if save:
         with open(f"{path}/random_forest.txt", "w") as f:
-            f.write(rf)
+            f.write(rf)'''
 
     sv = svm(X, y, fold_number)
     if display:
@@ -57,19 +57,19 @@ def supervised(display: True, save: True):
         with open(f"{path}/svm.txt", "w") as f:
             f.write(sv)
 
-    ab = ada_boost(X, y, fold_number)
+    '''ab = ada_boost(X, y, fold_number)
     if display:
         print(ab)
     if save:
         with open(f"{path}/ada_boost.txt", "w") as f:
-            f.write(ab)
+            f.write(ab)'''
 
     nn = neural_network(X, y, fold_number)
     if display:
         print(nn)
     if save:
         with open(f"{path}/neural_network.txt", "w") as f:
-            f.write(nn)"""
+            f.write(nn)
 
 
 print("Starting...")

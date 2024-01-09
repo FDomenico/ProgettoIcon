@@ -29,33 +29,28 @@ def define_clause(kb_path: str, kb_name: str) -> Prolog:
     prolog.assertz("is_personal_injured(violation(V)) :- personal_injury(violation(V), PI), (PI = \"Yes\")")
 
     # arrest_type
-    prolog.assertz("is_m_patrol(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"A - Marked Patrol\")")
-    prolog.assertz("is_u_patrol(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"B - Unmarked Patrol\")")
-    prolog.assertz("is_l_p_recognition(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"S - License Plate Recognition\")")
-    prolog.assertz("is_m_laser(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"Q - Marked Laser\")")
-    prolog.assertz("is_motorcycle(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"L - Motorcycle\")")
-    prolog.assertz("is_f_patrol(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"O - Foot Patrol\")")
-    prolog.assertz("is_u_laser(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"R - Unmarked Laser\")")
-    prolog.assertz("is_marked(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"M - Marked(Off - Duty)\")")
-    prolog.assertz("is_m_s_radar(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"E - Marked Stationary Radar\")")
-    prolog.assertz("is_m_m_radar_s(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"G - Marked Moving Radar(Stationary)\")")
-    prolog.assertz("is_m_m_radar_m(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"I - Marked Moving Radar(Moving)\")")
-    prolog.assertz("is_u_m_radar_s(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"H - Unmarked Moving Radar(Stationary)\")")
-    prolog.assertz("is_monted_patrol(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"P - Mounted Patrol\")")
-    prolog.assertz("is_unmarked(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"N - Unmarked(Off - Duty)\")")
-    prolog.assertz("is_u_vascar(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"D - Unmarked VASCAR\")")
-    prolog.assertz("is_u_m_radar_m(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"J - Unmarked Moving Radar(Moving)\")")
-    prolog.assertz("is_u_s_radar(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"F - Unmarked Stationary Radar\")")
-    prolog.assertz("is_m_vascar(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"C - Marked VASCAR)\")")
-    prolog.assertz("is_a_aircraft(violation(V)) :- arrest_type(violation(V1), AT), (AT = \"K - Aircraft Assist\")")
+    prolog.assertz("is_m_patrol(violation(V)) :- arrest_type(violation(V), AT), (AT = \"A - Marked Patrol\")")
+    prolog.assertz("is_u_patrol(violation(V)) :- arrest_type(violation(V), AT), (AT = \"B - Unmarked Patrol\")")
+    prolog.assertz("is_l_p_recognition(violation(V)) :- arrest_type(violation(V), AT), (AT = \"S - License Plate Recognition\")")
+    prolog.assertz("is_m_laser(violation(V)) :- arrest_type(violation(V), AT), (AT = \"Q - Marked Laser\")")
+    prolog.assertz("is_motorcycle(violation(V)) :- arrest_type(violation(V), AT), (AT = \"L - Motorcycle\")")
+    prolog.assertz("is_f_patrol(violation(V)) :- arrest_type(violation(V), AT), (AT = \"O - Foot Patrol\")")
+    prolog.assertz("is_u_laser(violation(V)) :- arrest_type(violation(V), AT), (AT = \"R - Unmarked Laser\")")
+    prolog.assertz("is_marked(violation(V)) :- arrest_type(violation(V), AT), (AT = \"M - Marked (Off-Duty)\")")
+    prolog.assertz("is_m_s_radar(violation(V)) :- arrest_type(violation(V), AT), (AT = \"E - Marked Stationary Radar\")")
+    prolog.assertz("is_m_m_radar_s(violation(V)) :- arrest_type(violation(V), AT), (AT = \"G - Marked Moving Radar (Stationary)\")")
+    prolog.assertz("is_m_m_radar_m(violation(V)) :- arrest_type(violation(V), AT), (AT = \"I - Marked Moving Radar (Moving)\")")
+    prolog.assertz("is_u_m_radar_s(violation(V)) :- arrest_type(violation(V), AT), (AT = \"H - Unmarked Moving Radar (Stationary)\")")
+    prolog.assertz("is_monted_patrol(violation(V)) :- arrest_type(violation(V), AT), (AT = \"P - Mounted Patrol\")")
+    prolog.assertz("is_unmarked(violation(V)) :- arrest_type(violation(V), AT), (AT = \"N - Unmarked (Off-Duty)\")")
+    prolog.assertz("is_u_vascar(violation(V)) :- arrest_type(violation(V), AT), (AT = \"D - Unmarked VASCAR\")")
+    prolog.assertz("is_u_m_radar_m(violation(V)) :- arrest_type(violation(V), AT), (AT = \"J - Unmarked Moving Radar (Moving)\")")
+    prolog.assertz("is_u_s_radar(violation(V)) :- arrest_type(violation(V), AT), (AT = \"F - Unmarked Stationary Radar\")")
+    prolog.assertz("is_m_vascar(violation(V)) :- arrest_type(violation(V), AT), (AT = \"C - Marked VASCAR\")")
+    prolog.assertz("is_a_aircraft(violation(V)) :- arrest_type(violation(V), AT), (AT = \"K - Aircraft Assist\")")
 
     prolog.assertz("arrest_category(violation(V), 1) :- is_m_patrol(violation(V)); is_u_patrol(violation(V)); is_f_patrol(violation(V)); is_monted_patrol(violation(V))")
-    prolog.assertz("arrest_category(violation(V), 2) :- is_l_p_recognition(violation(V)); is_u_laser(violation(V)); is_m_laser(violation(V)); is_m_s_radar(violation(V)); is_m_m_radar_s(violation(V)); "
-                   "is_m_m_radar_m(violation(V)); "
-                   "is_u_m_radar_s(violation(V)); "
-                   "is_u_m_radar_m(violation(V)); "
-                   "is_u_s_radar(violation(V)); "
-                   "is_m_vascar(violation(V)); is_u_vascar(violation(V))")
+    prolog.assertz("arrest_category(violation(V), 2) :- is_l_p_recognition(violation(V)); is_u_laser(violation(V)); is_m_laser(violation(V)); is_m_s_radar(violation(V)); is_m_m_radar_s(violation(V)); is_m_m_radar_m(violation(V)); is_u_m_radar_s(violation(V)); is_u_m_radar_m(violation(V)); is_u_s_radar(violation(V)); is_m_vascar(violation(V)); is_u_vascar(violation(V))")
     prolog.assertz("arrest_category(violation(V), 3) :- is_motorcycle(violation(V)); is_a_aircraft(violation(V)); is_unmarked(violation(V)); is_marked(violation(V))")
 
     prolog.assertz(f"vehicle_age(violation(V), Age) :- year(violation(V), Year), current_year(CurrentYear), Age is CurrentYear - Year")

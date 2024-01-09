@@ -1,4 +1,4 @@
-unique_code,keywords,category,belts,personal_injury,property_damage,commercial_license,commercial_vehicle,vehicle_type,year,make,model,color,charge,contributed_to_accident,gender,driver_state,dL_state,arrest_type,violation_type
+unique_code,keywords,description_category,belts,personal_injury,property_damage,commercial_license,commercial_vehicle,vehicle_type,year,make,model,color,charge,contributed_to_accident,gender,driver_state,dL_state,arrest_type,violation_type
 Code_12032,driver failure exercise due care avoid pedestrian collision,2,No,No,No,No,No,02 - Automobile,2018,TOTOYA,4DR,BLACK,21504a,No,M,MD,MD,A - Marked Patrol,0
 Code_16050,driver failure stop stop sign line,13,No,Yes,No,No,No,28 - Other,2018,CANNONDALE,CAAD10,BLACK,21707a,No,M,MD,MD,A - Marked Patrol,0
 Code_30737,knowingly driving uninsured vehicle,12,Yes,No,No,No,No,02 - Automobile,2008,HYUNDAI,2S,BLACK,17107,No,F,MD,MD,A - Marked Patrol,0

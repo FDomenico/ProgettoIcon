@@ -60,6 +60,8 @@ def stats(violation: pd.DataFrame, save=True, display=True):
     df_stat_ds = pd.DataFrame(stat_ds)
     stat_dls = violation['dL_state'].unique()
     df_stat_dls = pd.DataFrame(stat_dls)
+    stat_dkd = violation[['keywords', 'description_category']]
+    df_stat_dkd = pd.DataFrame(stat_dkd)
     if display:
         print(stat_g)
         print(stat_m)
@@ -69,6 +71,7 @@ def stats(violation: pd.DataFrame, save=True, display=True):
         print(stat_at)
         print(stat_ds)
         print(stat_dls)
+        print(stat_dkd)
 
     if save:
         stat_g.to_csv("../dataset/gender_stat.csv")
@@ -79,6 +82,7 @@ def stats(violation: pd.DataFrame, save=True, display=True):
         df_stat_at.to_csv("../dataset/arrest_type_stat.csv")
         df_stat_ds.to_csv("../dataset/driver_state_stat.csv")
         df_stat_dls.to_csv("../dataset/dL_state_stat.csv")
+        df_stat_dkd.to_csv("../dataset/dkd_state_stat.csv")
 
 
 def cross_val_score_plot(score, name, save: True, display: False):

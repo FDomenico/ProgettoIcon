@@ -50,7 +50,7 @@ def kmeans_clustering(X, n_clusters=3):
 
 
 df = pd.read_csv('../dataset/new_dataset.csv')
-df.drop('unique_code', axis=1, inplace=True)
+df.drop(['unique_code', 'vehicle_age'], axis=1, inplace=True)
 y = df['violation_type']
 df.drop('violation_type', axis=1, inplace=True)
 

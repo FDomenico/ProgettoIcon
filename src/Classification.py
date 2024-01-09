@@ -6,7 +6,7 @@ def classification(df1: pd.DataFrame):
     categorie = {
         'failure device instructions': ['driving vehicle hov lane authorized traffic control device',
                                         'driver failure obey traffic device making turn',
-                                        'traffic control device instructions'],
+                                        'traffic control device instructions'], #5
         'window': ['driving motor veh obstructed windshield', 'driving unsafe veh hwy',
                    'driving hwy objmaterialobstruct hangingfrom rearview mirror interfering wclear view',
                    'installing window tinting material compliance requirements',
@@ -17,12 +17,12 @@ def classification(df1: pd.DataFrame):
                    'driving veh window view obstructed sign material',
                    'driving vehicle removable windshield placard hanging inside rearview mirror', 'window tint',
                    'operating vehicle highway unauthorized window tinting material',
-                   'installing window tinting material compliance requirements'],
+                   'installing window tinting material compliance requirements'], #16
         'exceeding speed': ['failure reduce speed curve', 'failure reduce speed dangerous highway conditions', '75 55',
                             'speed greater reasonable', 'driving veh excess reasonable prudent speed hwy',
                             'driving vehicle excess reasonable prudent speed highway', 'exceeding maximum',
-                            'exceeding posted', 'exceeding highway work zone speed limit'],
-        'failure registration card': ['failure display registration card upon demand police officer'],
+                            'exceeding posted', 'exceeding highway work zone speed limit'], #4
+        'failure registration card': ['failure display registration card upon demand police officer'], #6
         'problem vehicle light': ['motor veh trailer combination end veh', 'failure dim lighted head lamps parked veh',
                                   'reverse lights inoperative', 'stoplight light inoperative',
                                   'right front clearance light inoperative',
@@ -54,7 +54,7 @@ def classification(df1: pd.DataFrame):
                                   'failure display two lighted front lamps required',
                                   'failure display reflect red color light rear lamps reflectors req',
                                   'clearance lamps', 'fog auxilary lamps', 'parking lamps',
-                                  'failure equip hwy veh required lamps reflectors'],
+                                  'failure equip hwy veh required lamps reflectors'], #11
         'careless driving': ['failure driver slow reasonable prudent speed passing stopped emerg veh',
                              'failure driver make lane change availablelane immed adjacent stopped emerg veh',
                              'drive across private property purpose avoiding traffic control device',
@@ -95,7 +95,7 @@ def classification(df1: pd.DataFrame):
                              'driver changing lanes prohibited traffic control device', 'driver changing lanes unsafe',
                              'unsafe lane changing', 'failure drive vehicle right half roadway required',
                              'negligent driving vehicle careless imprudent manner',
-                             'driver using hands use handheld telephone whilemotor vehicle motion'],
+                             'driver using hands use handheld telephone whilemotor vehicle motion'], #2
         'administration problem': ['owner failure return adm suspended reg card',
                                    'failure obligor register insurance commissioner year',
                                    'failure motor veh driver furnish written id info',
@@ -108,14 +108,14 @@ def classification(df1: pd.DataFrame):
                                    'failure veh owner furnish adm required insurance evidence bodily injury accident',
                                    'owner motor scooter failure displaydecal vehicle prescribed mva',
                                    'fail refuse surrender adm lawful demand suspended lic', 'notify adm address',
-                                   'failure display tab plates veh required adm', 'notify administration'],
+                                   'failure display tab plates veh required adm', 'notify administration'], #0
         'driving alcohol': ['driving impaired controlled dangerous substance',
                             'driving attempting drive veh far impaired alcohol',
                             'driving veh far impaired drugs drive safely',
                             'driving attempting drive motor vehicle alcohol',
                             'driving motor veh alcohol blood violation restriction.',
                             'driving veh impaired controlled dangerous substance',
-                            'driving attempting drive motor vehicle alcohol', 'alcohol'],
+                            'driving attempting drive motor vehicle alcohol', 'alcohol'], #3
         'license problem': ['failing perform required act pertaining drivers lic',
                             'violating provisional lic restriction',
                             'person driving motor veh hwy public use property suspended lic privilege',
@@ -140,7 +140,7 @@ def classification(df1: pd.DataFrame):
                             'failure individual driving highway display license uniformed police demand',
                             'revoked outofstate license', 'person driving motor vehicle license suspended',
                             'without required license authorization', 'revoked license privilege',
-                            'suspended license privilege', 'expired license'],
+                            'suspended license privilege', 'expired license'], #7
         'sign violation': ['driver failure stop sidewalk emerging driveway',
                            'driver failure yield right way entering hwy private driveway',
                            'park desig indiv wdisibilities space wo special reg platewindshield placard auth use',
@@ -166,15 +166,14 @@ def classification(df1: pd.DataFrame):
                            'parking veh wherever prohibited official', 'parking prohibited official signs',
                            'failure yield right way left turn', 'stopping veh crosswalk',
                            'driver failure stop pedestrian crosswalk', 'stop sign', 'stop sign line',
-                           'flashing red traffic signal without stopping'],
+                           'flashing red traffic signal without stopping'], #13
         'belts': ['operator failure use seat belt',
                   'person md reg vehicle failing transport child weighing 40 lbs less child safety seat',
                   'safety belts', 'fail transport child age 16 seat belt',
                   'oper motor veh occupant 16 restrained seat belt', 'passenger age 16 outboard front seat',
                   'passenger age 16 rear seat',
                   'failing secure child age 8 child safety seat transporting motor vehicle',
-                  'failing secure child age 8 child safety seat transporting motor vehicle',
-                  'operator restrained seatbelt', 'operator restrained seat belt', 'occupant 16 restrained seatbelt'],
+                  'operator restrained seatbelt', 'operator restrained seat belt', 'occupant 16 restrained seatbelt'], #1
         'other': ['driving motor vehicle able comply english speaking requirements', 'throwing refuseon hwy',
                   'driving motor veh hwy wearing earplugs ears',
                   'operating motor vehicle without proper required ememergency equipment power unit',
@@ -201,7 +200,7 @@ def classification(df1: pd.DataFrame):
                   'failure driver drive curb upon signal police veh', 'possessing fictitious lic',
                   'driving veh hwy wo required minimum equipment', 'holder learners permit driving wo req supervision',
                   'stoplight inoperative', 'failure control vehicle speed highway avoid collision',
-                  'failure control veh speed hwy avoid collision'],
+                  'failure control veh speed hwy avoid collision'], #9
         'problem vehicle': ['installation battery improper', 'operating motor vehicle fabric exposed tread tire',
                             'operating motor vehicle flat tire', 'failure loaded hwy veh safely loaded',
                             'frame commercial vehicle cracked loose sagging broken', 'suspension shocks',
@@ -218,12 +217,12 @@ def classification(df1: pd.DataFrame):
                             'driving veh hwy wo required minimum equipment', 'using device motor veh exhaust',
                             'operating motor vehicle without adequate horn', 'windshield wipers',
                             'vehicle brake system', 'exhaust system', 'rearview mirrors',
-                            'operating motor vehicle inadequate', 'driving veh hwy wo required minimum equipment'],
+                            'operating motor vehicle inadequate', 'driving veh hwy wo required minimum equipment'], #10
         'omission of assistance': ['failure return remain scene',
                                    'fail veh driver accto rptbodily injattended veh damageprop damageto nearest police',
                                    'fail veh driver accto rpt', 'failure immediately stop veh scene',
                                    'failure stop accident involving damage attended veh', 'failure veh driver stop',
-                                   'failure veh driver accident', 'failure veh driver involved accident'],
+                                   'failure veh driver accident', 'failure veh driver involved accident'], #8
         'registration problems': ['allowing vehicle driven hwy unpaid registration fee',
                                   'driving veh hwy suspended reg', 'owner failure apply adm reg veh subject reg',
                                   'driving unregistered trailer highway', 'driving veh hwy unpaid registration fee',
@@ -235,7 +234,7 @@ def classification(df1: pd.DataFrame):
                                   'owner knowingly permitting driven uninsured vehicle', 'driving uninsured vehicle',
                                   'knowingly driving owner knowingly permitting driven uninsured vehicle',
                                   'knowingly driving uninsured vehicle', 'suspended registration',
-                                  'operating unregistered motor vehicle highway'],
+                                  'operating unregistered motor vehicle highway'], #12
         'tag problem': ['failure properly position registration plate vehicle',
                         'displaying permitting displayed reg plate issued vehicle',
                         'obsuring vehicle registration plate wintent avoid id', 'driving wo current tags',
@@ -261,24 +260,24 @@ def classification(df1: pd.DataFrame):
                         'failure attach vehicle registration plates front rear',
                         'without current registration plates validation tabs', 'displaying expired registration plate',
                         'displaying reg plate issued vehicle', 'displaying reg plate issued vehicle person',
-                        'displaying registration plate issued vehicle'],
+                        'displaying registration plate issued vehicle'], #15
         'stop lights': ['stop lights', 'stop red traffic signal', 'stop steady circular red signal',
-                        'stop steady red arrow signal'],
+                        'stop steady red arrow signal'], #14
     }
 
     # Aggiungi una colonna 'categoria' al DataFrame
-    df['category'] = None
+    df['description_category'] = None
 
     # Assegna ogni violazione a una categoria
     for categoria, parole_chiave in categorie.items():
         for parola_chiave in parole_chiave:
-            df.loc[df['keywords'].str.contains(parola_chiave, case=False), 'category'] = categoria
+            df.loc[df['keywords'].str.contains(parola_chiave, case=False), 'description_category'] = categoria
 
     # Visualizza il DataFrame con le categorie assegnate
-    print(df[['keywords', 'category']])
+    print(df[['keywords', 'description_category']])
 
-    keyword_column = df.pop('category')
-    df.insert(df.columns.get_loc('keywords') + 1, 'category', keyword_column)
+    keyword_column = df.pop('description_category')
+    df.insert(df.columns.get_loc('keywords') + 1, 'description_category', keyword_column)
 
     return df
 

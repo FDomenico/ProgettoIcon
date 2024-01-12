@@ -48,41 +48,26 @@ def change_code_to_description_df(df: pd.DataFrame, inverse=False):
 
 def stats(violation: pd.DataFrame, save=True, display=True):
     stat_g = violation[['gender']].describe()
-    stat_m = violation[['model']].describe()
     stat_make = violation[['make']].describe()
-    stat_c = violation['charge'].unique()
-    df_stat_c = pd.DataFrame(stat_c)
     stat_vt = violation['vehicle_type'].unique()
     df_stat_vt = pd.DataFrame(stat_vt)
     stat_at = violation['arrest_type'].unique()
     df_stat_at = pd.DataFrame(stat_at)
-    stat_ds = violation['driver_state'].unique()
-    df_stat_ds = pd.DataFrame(stat_ds)
-    stat_dls = violation['dL_state'].unique()
-    df_stat_dls = pd.DataFrame(stat_dls)
-    stat_dkd = violation[['keywords', 'description_category']]
-    df_stat_dkd = pd.DataFrame(stat_dkd)
+    stat_kc = violation[['keywords', 'description_category']]
+    df_stat_kc = pd.DataFrame(stat_kc)
     if display:
         print(stat_g)
-        print(stat_m)
         print(stat_make)
-        print(stat_c)
         print(stat_vt)
         print(stat_at)
-        print(stat_ds)
-        print(stat_dls)
-        print(stat_dkd)
+        print(stat_kc)
 
     if save:
         stat_g.to_csv("../dataset/gender_stat.csv")
-        stat_m.to_csv("../dataset/model_stat.csv")
         stat_make.to_csv("../dataset/make_stat.csv")
-        df_stat_c.to_csv("../dataset/charge_stat.csv")
         df_stat_vt.to_csv("../dataset/vehicle_type_stat.csv")
         df_stat_at.to_csv("../dataset/arrest_type_stat.csv")
-        df_stat_ds.to_csv("../dataset/driver_state_stat.csv")
-        df_stat_dls.to_csv("../dataset/dL_state_stat.csv")
-        df_stat_dkd.to_csv("../dataset/dkd_state_stat.csv")
+        df_stat_kc.to_csv("../dataset/keyword_category_stat.csv", index=False)
 
 
 def cross_val_score_plot(score, name, save: True, display: False):

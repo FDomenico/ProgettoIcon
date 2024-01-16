@@ -13,7 +13,7 @@ def preprocessing():
 
     # Codifica numerica di violation_type
     le = LabelEncoder()
-    violation['violation_type'] = le.fit_transform(violation['violation_type'])
+    violation['violation_type'] = le.fit_transform(violation['violation_type']) + 1
 
     drop_column_traffic = ['race', 'state', 'driver_city']
     violation.drop(drop_column_traffic, axis=1, inplace=True)
@@ -23,7 +23,7 @@ def preprocessing():
                                'gender', 'driver_state', 'dL_state', 'arrest_type', 'violation_type']
     violation.dropna(subset=column_check_na_traffic, inplace=True)
 
-    # Rimuovi le righe con una sola parola nel campo 'descrizione'
+    # Rimozione delle righe con una sola parola nel campo 'descrizione'
     violation = violation[violation['description'].apply(lambda x: len(str(x).split()) > 1)]
 
     # Classificazione della descrizione
@@ -34,7 +34,7 @@ def preprocessing():
     le = LabelEncoder()
     violation['description_category'] = le.fit_transform(violation['description_category'])
 
-    # Rimuovi il ".0" da ogni elemento nella colonna 'NumeroConDecimale'
+    # Rimozione del ".0" da ogni elemento nella colonna 'Year'
     violation['year'] = violation['year'].apply(lambda x: int(x) if x.is_integer() else x)
 
     print("Preprocessing done!")

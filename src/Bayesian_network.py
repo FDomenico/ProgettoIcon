@@ -116,9 +116,9 @@ def calc_matrix_with_cols(cols: list, indexes: str):
 new_column = create_dataframe(nodes, df, N_BINS)
 data = DataFrame(data=new_column)
 violation_type = {
-    0: "A",
-    1: "B",
-    2: "C"
+    1: "A",
+    2: "B",
+    3: "C"
 }
 data["violation_type"] = [violation_type[r] for r in df["violation_type"]]
 
@@ -270,9 +270,9 @@ for i, r in enumerate(tqdm.tqdm(data.iloc)):
     obj = {k: corr_dict[v] for k, v in obj.items()}
     prob = inference.query(variables=["violation_type"], evidence=obj, show_progress=False)
     str_int = {
-        0: 0,
-        1: 1,
-        2: 2,
+        1: 0,
+        2: 1,
+        3: 2,
     }
     if i >= max_n-3:
         print(f'expected_result: {expected_result}, {np.argmax(prob)},\nactual_result: {prob}')
@@ -284,14 +284,8 @@ print(f"Accuracy: {correct / i}")
 
 # Get the graph representation of the model
 G = nx.DiGraph(model.edges())
-
-# Set the node positions
 pos = nx.spring_layout(G)
-
-# Plot the graph
 nx.draw(G, pos, with_labels=True, font_size=10, node_size=1000, node_color='lightblue')
-#save the graph
 plt.savefig("../plot/bayesian_network.png")
-# Show the plot
 plt.show()
 

@@ -10,7 +10,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from sklearn.model_selection import KFold
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder
 from scikeras.wrappers import KerasClassifier
 from Utils import cross_val_score_plot, confusion_matrix_plot
 import warnings

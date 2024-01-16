@@ -1,6 +1,5 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import uuid
 from sklearn.metrics import ConfusionMatrixDisplay
 
 
@@ -8,11 +7,9 @@ NEW_TRAFFIC_VIOLATIONS_PATH = '../dataset/traffic_violations_preprocessing.csv'
 PLOT_PATH = "../plot/"
 
 
+# Aggiunto unique_code
 def add_unique_code(df):
-    # Aggiungi una nuova colonna chiamata 'unique_code' con un codice univoco per ogni riga
     df['unique_code'] = [f'Code_{i + 1}' for i in range(len(df))]
-
-    # Riorganizza le colonne per mettere 'unique_code' all'inizio
     columns = ['unique_code'] + [col for col in df.columns if col != 'unique_code']
     df = df[columns]
 
@@ -90,7 +87,3 @@ def confusion_matrix_plot(confusion_matrix, labels, name, save: True, display: F
     if save:
         plt.savefig(PLOT_PATH + name + "_confusion_matrix.png")
     plt.close()
-
-
-#data = pd.read_csv('../dataset/traffic_violations.csv')
-#plot_violation_type(data)

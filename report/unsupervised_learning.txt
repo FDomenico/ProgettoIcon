@@ -1,9 +1,9 @@
 KMeans
 y Labels Count:
 violation_type
-0    2398
 1    2398
 2    2398
+3    2398
 Name: count, dtype: int64
 KMeans Labels Count:
 1    3006

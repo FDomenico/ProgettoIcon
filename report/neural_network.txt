@@ -4,9 +4,9 @@ Epoch: 100
 Dropout probability: 0.2
               precision    recall  f1-score   support
 
-           0       0.68      0.66      0.67      2398
-           1       0.81      0.97      0.88      2398
-           2       0.62      0.53      0.57      2398
+           1       0.69      0.64      0.66      2398
+           2       0.82      0.97      0.89      2398
+           3       0.62      0.55      0.58      2398
 
     accuracy                           0.72      7194
    macro avg       0.71      0.72      0.71      7194

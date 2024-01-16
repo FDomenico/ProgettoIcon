@@ -34,7 +34,6 @@ def pre_elaborazione(testo):
 
 # Funzione per estrarre le parole chiave da una descrizione
 def estrai_parole_chiave(testo):
-    # Inizializza l'oggetto Rake per l'estrazione delle parole chiave
     r = Rake()
 
     r.extract_keywords_from_text(testo)

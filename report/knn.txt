@@ -4,9 +4,9 @@ weights: distance
 metric: manhattan
               precision    recall  f1-score   support
 
-           0       0.64      0.66      0.65      2398
-           1       0.82      0.96      0.88      2398
-           2       0.60      0.48      0.53      2398
+           1       0.64      0.66      0.65      2398
+           2       0.82      0.96      0.88      2398
+           3       0.60      0.48      0.53      2398
 
     accuracy                           0.70      7194
    macro avg       0.69      0.70      0.69      7194

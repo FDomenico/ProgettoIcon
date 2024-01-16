@@ -2,7 +2,6 @@ import pandas as pd
 
 def classification(df1: pd.DataFrame):
     df = df1
-    # Definisci le categorie
     categorie = {
         'failure device instructions': ['driving vehicle hov lane authorized traffic control device',
                                         'driver failure obey traffic device making turn',
@@ -265,7 +264,6 @@ def classification(df1: pd.DataFrame):
                         'stop steady red arrow signal'], #14
     }
 
-    # Aggiungi una colonna 'categoria' al DataFrame
     df['description_category'] = None
 
     # Assegna ogni violazione a una categoria
@@ -273,7 +271,6 @@ def classification(df1: pd.DataFrame):
         for parola_chiave in parole_chiave:
             df.loc[df['keywords'].str.contains(parola_chiave, case=False), 'description_category'] = categoria
 
-    # Visualizza il DataFrame con le categorie assegnate
     print(df[['keywords', 'description_category']])
 
     keyword_column = df.pop('description_category')
